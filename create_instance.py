@@ -34,6 +34,8 @@ def create_instance():
     cd home/ubuntu
     sudo apt update
     git clone https://github.com/JoaoVictorRodrigues/Projeto_Cloud.git
+    cd Projeto_Cloud
+    chmod +x config_db.sh
     ./config_db.sh
     """
     # create a new EC2 instance
