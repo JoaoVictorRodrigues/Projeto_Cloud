@@ -7,13 +7,13 @@ ec2 = boto3.client('ec2')
 
 # Deleta uma instancia caso exista e cria uma nova
 
-def del_and_create_instance():
-    
+def create_instance():
+
     instance_id = ec2.describe_instances(
-        Filters= [
+        Filters=[
             {
-                'Name':'tag:Name',
-                'Values':['Teste']
+                'Name': 'tag:Name',
+                'Values': ['Teste']
             }
         ]
     )
@@ -22,7 +22,7 @@ def del_and_create_instance():
     for reservation in (instance_id["Reservations"]):
         for instance in reservation["Instances"]:
             ids.append(instance["InstanceId"])
-    
+
     try:
         ec2.terminate_instances(InstanceIds=ids)
         print('Instancia:', ids, ' terminadas')
@@ -30,6 +30,12 @@ def del_and_create_instance():
         print(e)
 
 
+    userdata_oregon = """#!/bin/sh
+    cd home/ubuntu
+    sudo apt update
+    git clone https://github.com/JoaoVictorRodrigues/Projeto_Cloud.git
+    ./config_db.sh
+    """
     # create a new EC2 instance
     try:
         instances = ec2.run_instances(
@@ -49,15 +55,11 @@ def del_and_create_instance():
                         },
                     ],
                 },
-            ]
-            UserData = str('''
-                #!/bin/bash
-                git clone https://github.com/JoaoVictorRodrigues/Projeto_Cloud.git
-                
-                ''') 
+            ],
+            UserData=userdata_oregon
         )
     except ClientError as e:
         print(e)
 
 
-del_and_create_instance()
+create_instance()
