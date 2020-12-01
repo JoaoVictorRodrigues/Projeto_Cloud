@@ -4,6 +4,7 @@ sudo -u postgres createdb -O cloud tasks
 sudo su - postgres
 sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/12/main/postgresql.conf
 echo host all all 192.168.0.0/20 trust >> /etc/postgresql/12/main/pg_hba.conf
-exit
+cd /
+cd home/ubuntu
 sudo ufw allow 5432/tcp
 sudo systemctl restart postgresql
