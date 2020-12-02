@@ -12,7 +12,7 @@ COMMANDS = ["get", "add", "delete"]
 
 if __name__ == "__main__":
     if argv[1] == COMMANDS[0]:
-        response = requests.get(url + "get")
+        response = requests.get(url + "get/")
         print(response.text)
     elif argv[1] == COMMANDS[1]:
         if len(argv) == 4:
@@ -20,12 +20,12 @@ if __name__ == "__main__":
             desc  = argv[3]
             date = datetime.now().isoformat()
             data = json.dumps({'title':title, 'pub_date':date, 'description': desc})
-            response = requests.post(url + "post", data=data)
+            response = requests.post(url + "post/", data=data)
             print(response.text)
         else:
             print("Numero de argumentos incorreto.")
     elif argv[1] == COMMANDS[2]:
-        response = requests.delete(url + "delete")
+        response = requests.delete(url + "delete/")
         print(response.text)
     else:
         print("syntax error: rota invalida")
