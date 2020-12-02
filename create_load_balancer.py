@@ -13,7 +13,7 @@ def delete_load_balancer(client, nome):
 
 
 def create_load_balancer(client, nome, security_id):
-    client.create_load_balancer(
+    res = client.create_load_balancer(
         LoadBalancerName=nome,
         Listeners=[
             {
@@ -36,3 +36,5 @@ def create_load_balancer(client, nome, security_id):
         ]
     )
     print("LoadBalancer Criado")
+    with open("loadBalancer_DNS.txt", "w") as file:
+        file.write(res['DNSName'])

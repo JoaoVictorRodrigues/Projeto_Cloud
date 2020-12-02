@@ -46,7 +46,6 @@ def get_instance_id(client, nome):
             }
         ])
     inst_id = instance_id['Reservations'][0]['Instances'][0]['InstanceId']
-    print(inst_id)
     return(inst_id)
 
 
@@ -120,7 +119,7 @@ def create_instance_NV(security_id, inst_ip):
     userData_Nv = """#!/bin/sh
     cd home/ubuntu
     sudo apt update
-    git clone https://github.com/raulikeda/tasks.git
+    git clone https://github.com/JoaoVictorRodrigues/tasks.git
     sudo sed -i 's/node1/{0}/' /home/ubuntu/tasks/portfolio/settings.py
     cd tasks
     ./install.sh
@@ -167,7 +166,6 @@ def delete_image(nome):
         )
         if len(image_id['Images']) > 0:
             inst_id = image_id['Images'][0]['ImageId']
-            print(inst_id)
             client_Inst_NV.deregister_image(ImageId=inst_id)
     except ClientError as e:
         print(e)
@@ -181,4 +179,3 @@ def create_AMI_ORM(instance_id, nome):
         ImageIds=[ami["ImageId"]])
     print("Imagem criada")
     return ami['ImageId']
-    #delete_instances(client_Inst_NV, 'NorthV_ORM')

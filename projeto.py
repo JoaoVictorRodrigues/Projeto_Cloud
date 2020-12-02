@@ -8,13 +8,16 @@ from create_instance import *
 import time
 
 #Deleta antes de criar para não haver conflito
+delete_auto_scaling(client_AS_NV,'AutoScaling')
+delete_AS_launch(client_AS_NV,'LaunchAS')
 delete_instances(client_Inst_Oh, 'Ohio_DB')
 delete_instances(client_Inst_NV, 'NorthV_ORM')
 delete_load_balancer(client_LB_NV,'LoadBalancer')
-delete_AS_launch(client_AS_NV,'LaunchAS')
-delete_auto_scaling(client_AS_NV,'AutoScaling')
+
+
 
 time.sleep(60)
+
 delete_security_group(client_Inst_Oh, "SgOhio")
 delete_security_group(client_Inst_NV, "SgNorth")
 
@@ -31,6 +34,7 @@ inst_id = get_instance_id(client_Inst_NV,'NorthV_ORM')
 delete_image('ORM')
 
 ami = create_AMI_ORM(inst_id,'ORM')
+delete_instances(client_Inst_NV, 'NorthV_ORM')
 
 create_load_balancer(client_LB_NV,'LoadBalancer',North)
 

@@ -57,4 +57,4 @@ def create_auto_scalling(client, nome, launch_name):
         LoadBalancerNames=['LoadBalancer'],
         CapacityRebalance=True
     )
-    print("AS Criado")
+    print("Auto Scaling Criado")
